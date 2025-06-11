@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/greeting")
-
 public class GreetingController {
 	
 	@PostMapping
-	public ResponseEntity<String> postGreeting(@RequestBody String value) throws Exception {
-		if(value.length() > 10)
-			throw new Exception("Tamanho do value deve ser no maximo 10!");
+	public ResponseEntity<String> postGreeting
+		(@RequestBody String value) throws Exception {
+		if (value.length() > 10)
+			throw new Exception("Tamanho do value deve ser no máximo 10");
 		return ResponseEntity.status(HttpStatus.CREATED).body(value);
 	}
 	
+
 	@GetMapping(value = {"","/","/{namePath}"})
 	public String getGreeting(
 			@RequestParam(required = false) String name,
@@ -38,4 +39,7 @@ public class GreetingController {
 		String message = ex.getMessage().replaceAll("\r\n", "");
 		return ResponseEntity.badRequest().body(message);
 	}
+	
+	
+	
 }
