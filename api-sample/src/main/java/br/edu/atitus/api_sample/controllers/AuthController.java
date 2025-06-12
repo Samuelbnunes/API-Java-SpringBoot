@@ -20,7 +20,7 @@ public class AuthController {
 	
 	private final UserService service;
 	
-	//Injeção de dependência via método constructor
+	// Injeção de dependência via método construtor
 	public AuthController(UserService service) {
 		super();
 		this.service = service;

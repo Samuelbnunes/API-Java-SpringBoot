@@ -1,5 +1,6 @@
 package br.edu.atitus.api_sample.repositories;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,9 @@ import br.edu.atitus.api_sample.entities.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID>{
-
 	
+	boolean existsByEmail(String email);
+	
+	Optional<UserEntity> findByEmail(String email);
+
 }
