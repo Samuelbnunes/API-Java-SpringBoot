@@ -10,7 +10,7 @@ import br.edu.atitus.api_sample.entities.UserEntity;
 import br.edu.atitus.api_sample.repositories.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService{
 	
 	private final UserRepository repository;
 	private final PasswordEncoder passwordEncoder;
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		var user = repository.findByEmail(username)
-			.orElseThrow(() -> new UsernameNotFoundException("Usuáro não encontrado"));
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 		return user;
 	}
 

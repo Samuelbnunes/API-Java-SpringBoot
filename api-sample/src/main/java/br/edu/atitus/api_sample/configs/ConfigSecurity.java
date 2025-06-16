@@ -16,13 +16,11 @@ public class ConfigSecurity {
 	@Bean
 	SecurityFilterChain getSecurity(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/ws**", "/ws/**").authenticated()
-						.anyRequest().permitAll());
-		
-		
-		
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.authorizeHttpRequests(auth -> auth
+					.requestMatchers("/ws**", "/ws/**").authenticated()
+					.anyRequest().permitAll());
+			
 		return http.build();
 	}
 	
@@ -40,4 +38,7 @@ public class ConfigSecurity {
 	PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
+	
 }
