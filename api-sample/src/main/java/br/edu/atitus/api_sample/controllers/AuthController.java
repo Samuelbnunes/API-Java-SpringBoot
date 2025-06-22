@@ -17,17 +17,17 @@ import br.edu.atitus.api_sample.dtos.SigninDTO;
 import br.edu.atitus.api_sample.dtos.SignupDTO;
 import br.edu.atitus.api_sample.entities.UserEntity;
 import br.edu.atitus.api_sample.entities.UserType;
-import br.edu.atitus.api_sample.services.UserService;
+import br.edu.atitus.api_sample.services.UserServices;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 	
-	private final UserService service;
+	private final UserServices service;
 	private final AuthenticationConfiguration authConfig;
 	
 	// Injeção de dependência via método construtor
-	public AuthController(UserService service, AuthenticationConfiguration authConfig) {
+	public AuthController(UserServices service, AuthenticationConfiguration authConfig) {
 		super();
 		this.service = service;
 		this.authConfig = authConfig;

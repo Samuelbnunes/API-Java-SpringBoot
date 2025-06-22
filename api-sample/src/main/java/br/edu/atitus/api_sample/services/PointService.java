@@ -53,7 +53,9 @@ public class PointService {
 		repository.deleteById(id);
 	}
 	
-	// CORREÇÃO FEITA
+	// CORREÇÃO FEITO TROQUEI O FINDALL PARA 
+	// return repository.findByUser(userAuth);
+	// NA linha 61
 	public List<PointEntity> findAll() {
 		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return repository.findByUser(userAuth);

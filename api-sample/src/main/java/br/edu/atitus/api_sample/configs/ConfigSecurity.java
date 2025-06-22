@@ -13,11 +13,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.edu.atitus.api_sample.components.AuthTokenFilter;
 
+
 @Configuration
 public class ConfigSecurity {
 
 	@Bean
 	SecurityFilterChain getSecurity(HttpSecurity http, AuthTokenFilter filter) throws Exception {
+		
 		http.csrf(csrf -> csrf.disable())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(auth -> auth
@@ -25,12 +27,14 @@ public class ConfigSecurity {
 					.anyRequest().permitAll())
 			.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 			
+			
 		return http.build();
 	}
 	
 	@Bean
 	WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
+			
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("*");
@@ -42,7 +46,5 @@ public class ConfigSecurity {
 	PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	
 	
 }
