@@ -5,14 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.edu.atitus.api_sample.dtos.PointDTO;
 import br.edu.atitus.api_sample.entities.PointEntity;
@@ -47,8 +40,22 @@ public class PointController {
 		return ResponseEntity.status(201).body(point);
 	}
 
+	// Método que fará a ATUALIZAÇÃO (PUT)
+		@PutMapping("/{id}")
+		public ResponseEntity<PointEntity> update(@PathVariable UUID id, @RequestBody PointDTO dto) throws Exception {
+			PointEntity updatedPoint = new PointEntity();
+			BeanUtils.copyProperties(dto, updatedPoint); // Copia os dados do DTO para o objeto temporário
+			
+			// Chama o método de atualização no serviço, passando o ID do caminho e os dados
+			PointEntity result = service.update(id, updatedPoint);
+			
+			return ResponseEntity.ok(result); // Retorna o objeto atualizado
+		}
+
+
+
 	@GetMapping
-	public ResponseEntity<List<PointEntity>> findAll(){
+	public ResponseEntity<List<PointEntity>> findAll() throws Exception {
 		var lista = service.findAll();
 		return ResponseEntity.ok(lista);
 	}

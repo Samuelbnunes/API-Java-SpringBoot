@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import br.edu.atitus.api_sample.entities.UserEntity;
 import br.edu.atitus.api_sample.repositories.UserRepository;
+import br.edu.atitus.api_sample.utils.validasenha;
+import br.edu.atitus.api_sample.utils.verificaemail;
 
 @Service
 public class UserService implements UserDetailsService{
@@ -37,7 +39,8 @@ public class UserService implements UserDetailsService{
 		
 		if (user.getPassword() == null 
 				|| user.getPassword().isEmpty()
-				|| user.getPassword().length() < 8)
+				|| user.getPassword().length() < 8
+				|| !validasenha.isValidPassword(user.getPassword()))
 			throw new Exception("Password inválido");
 		// TODO Validar a força da senha (Caracteres maiúsculos, minúsculos e númerais)
 		
@@ -46,6 +49,11 @@ public class UserService implements UserDetailsService{
 		
 		if (repository.existsByEmail(user.getEmail()))
 			throw new Exception("Já existe usuário cadastrado com este e-mail");
+		
+		if (verificaemail.isValidEmail(user.getEmail())){
+			
+			throw new Exception("E-mail inválido");
+		}
 		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
